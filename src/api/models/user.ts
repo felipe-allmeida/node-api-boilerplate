@@ -13,40 +13,40 @@ export class User {
                     return reject(err);
                 }
                 resolve(hash);
-            })
-        })
+            });
+        });
     }
 
     public static comparePassword(user: User, password: string): Promise<boolean> {
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, user.password, (err, res) => {
                 resolve(res === true);
-            })
+            });
         });
     }
 
     @PrimaryColumn('uuid')
-    public id: string;
+    public id!: string;
 
     @IsNotEmpty()
     @Column({ name: 'first_name'})
-    public firstName: string
+    public firstName!: string;
 
     @IsNotEmpty()
     @Column({ name: 'last_name' })
-    public lastName: string;
+    public lastName!: string;
 
     @IsNotEmpty()
-    public email: string;
+    public email!: string;
 
     @IsNotEmpty()
     @Column()
     @Exclude()
-    public password: string;
+    public password!: string;
 
     @IsNotEmpty()
     @Column()
-    public username: string;
+    public username!: string;
 
     public toString() : string {
         return `${this.firstName} ${this.lastName} ${this.email}`;

@@ -5,6 +5,7 @@ import { UserRepository } from '../repositories/user.repository';
 import { Logger, LoggerInterface } from 'src/decorators/logger.decorator';
 import { EventDispatcherInterface, EventDispatcher } from 'src/decorators/event-dispatcher';
 import { User } from '../models/user';
+import { Notifications } from '../notifications/notifications';
 
 @Service()
 export class UserService {
@@ -28,7 +29,7 @@ export class UserService {
         this.log.info('Create a new user => ', user.toString());
         user.id = v1();
         const newUser = await this.userRepository.save(user);
-        this.eventDispatcher.dispatch(events.user.created, newUser);
+        this.eventDispatcher.dispatch(Notifications.user.created, newUser);
         return newUser;
     }
 

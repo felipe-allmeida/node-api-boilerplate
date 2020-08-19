@@ -4,19 +4,17 @@ import { Logger, LoggerInterface } from 'src/decorators/logger.decorator';
 import { Request, Response, NextFunction } from 'express';
 
 @Middleware({ type: 'after'})
-export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface
-{
+export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
     public isProduction = env.isProduction;
     constructor(
         @Logger(__filename) private log: LoggerInterface
     ) { }
-    
+
     public error(error: HttpError, req: Request, res: Response, next: NextFunction): void {
         res.status(error.httpCode || 500);
         res.json({
             name: error.name,
-            message: error.message,
-            errors: error[`errors`] || [],
+            message: error.message
         });
 
         if (this.isProduction) {

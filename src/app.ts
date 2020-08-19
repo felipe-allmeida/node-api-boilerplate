@@ -6,17 +6,14 @@ import { currentUserChecker } from './auth/current-user-checker';
 import { AppSettings } from './appsettings';
 import { getConnectionOptions, createConnection } from 'typeorm';
 
-/* 
+/*
 * Load environment variables from .env file, where you can provide API keys and passwords.
 * By default dotenv loads the '.env' file.
 */
 
 class App {
-    public expressApp: Application;
-    public appSettings: AppSettings;
-
-    constructor() {
-    }
+    public expressApp!: Application;
+    public appSettings!: AppSettings;
 
     public async run(): Promise<this> {
         this.appSettings = new AppSettings();
@@ -42,7 +39,7 @@ class App {
         });
 
         const connection = await createConnection(connectionOptions);
-        
+
         settings.setData('sql-connection', connection);
     }
 

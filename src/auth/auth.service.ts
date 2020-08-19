@@ -13,7 +13,7 @@ export class AuthService {
         @OrmRepository() private userRepository: UserRepository,
     ) {}
 
-    public parseBasicAuthFromRequest(request: express.Request): { username: string, password: string} {
+    public parseBasicAuthFromRequest(request: express.Request): { username: string; password: string} | null {
         const authorization = request.header('authorization');
 
         if (authorization && authorization.split(' ')[0] === 'Basic') {
@@ -27,20 +27,22 @@ export class AuthService {
         }
 
         this.log.info('No credentials provided by the client');
-        return undefined;
+        return null;
     }
 
-    public async validateUser(username: string, password: string): Promise<User> {
+    public async validateUser(username: string, password: string): Promise<User | null> {
         const user = await this.userRepository.findOne({
             where: {
                 username,
             },
         });
 
+        if (!user) { return null; }
+
         if (await User.comparePassword(user, password)) {
             return user;
         }
 
-        return undefined;
+        return null;
     }
 }

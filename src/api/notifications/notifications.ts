@@ -3,6 +3,6 @@
  */
 export const Notifications = {
     user: {
-        created: 'onUserCreated'
+        created: 'onUserCreated',
     }
 };

@@ -1,11 +1,11 @@
-import * as path from 'path';
-import * as winston from 'winston';
+import path from 'path';
+import winston from 'winston';
 
 export interface LoggerInterface {
-    debug(message:string, ...args: any[]): void;
-    info(message: string, ...args: any[]): void;
-    warn(message: string, ...args: any[]): void;
-    error(message: string, ...args: any[]): void;
+    debug(message: string, ...args: any[]): void
+    info(message: string, ...args: any[]): void
+    warn(message: string, ...args: any[]): void
+    error(message: string, ...args: any[]): void
 }
 
 export class Logger implements LoggerInterface {
@@ -47,7 +47,7 @@ export class Logger implements LoggerInterface {
 
     private log(level: string, message: string, args: any[]): void {
         if (winston) {
-            winston[level](`${this.formatScope()} ${message}`, args);
+            winston.log(level, `${this.formatScope()} ${message}`, args);
         }
     }
 
